@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideU</title>
+   
+
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+
+
+
+
+<style>
+   
+    body{ 
+    background: url("images/offer2.jpg")no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+    background-attachment: fixed;
+    padding: 10%;
+    align-items:center;
+    justify-content:center;
+    display:flex;
+    font-family:sans-serif;
+    }
+    p{
+        text-align: center;
+        font-size: x-large;
+    }
+
+    div{
+       width: 40%;
+        padding: 30px;
+        border-style: groove;
+        margin: 0;
+        border: none;
+        background-color: white;
+    }
+   
+    .login_form{
+    border: 5px;
+    padding: 0px 0px;
+    padding-left: 20%;
+    }
+    
+    input[type=text],input[type=password]{
+        width: 100%;
+        font-size: medium;
+        margin: 8px 0;
+        display: inline-block;
+        padding: 10px;
+        border:1px solid#f36565;
+        box-sizing: border-box;
+    }
+    input[type=submit]{
+        background: linear-gradient(to bottom right,#FFE530,#FF2525)no-repeat;
+        width: 60%;
+        padding: 10px;
+        color: white;
+        border: none;
+    }
+    @media only screen and (max-width:800px) {
+     .login_form,div,p,i,body{
+         width: 80%;
+        
+     }
+        
+    }
+    @media only screen and (max-wedth:500px) {
+       .login_form,div,p,i,body{
+        width: 100%;}
+    }
+    
+</style>
+
+<script>
+    
+    function validation(){
+
+          var a=document.form.Email.value;
+          var b=document.form.pass.value;
+
+          atpos = a.indexOf("@");
+          dotpos = a.lastIndexOf(".");
+
+            if (atpos < 1 || ( dotpos - atpos < 2 )) {
+               alert("Please enter correct email ID");
+            }
+       
+        if(b.length<6||b.length>10){
+            
+            alert("Please enter the password more than 6 and less than 10");
+        }
+        
+        
+    }
+</script>
+
+</head>
+<body>
+    
+    <form class="login_form" method="post" name="form" >
+   <div>
+       <p style="color: #f36565;">Login Form</p>
+
+       <label for="email">Email</label><br>
+       <input  type="text" placeholder="Email" id="Email"  required>
+        
+       <label for="pass">Password</label>
+       <input type="password" placeholder="Password" id="Pass"  required>  
+       <label>Forgot Password?</label>
+
+       <p><input type="submit" id="submit" value="Log In"></p>
+
+       <label>Don't have account? <a href="signup.html">Sign Up</a></label>
+   </div>
+</form>
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+
+<script type="text/javascript">
+   
+          $(document).ready(function(){
+           
+
+            $('#submit').click(function(e){
+                e.preventDefault();
+                   
+                  // validation();
+
+                 var user= $('#Email').val();
+                 var pass= $('#Pass').val();
+                     
+                 $.ajax({
+
+                    url:"login_verification.php",
+                    type:"POST",
+                    data:{user:user, pass:pass},
+
+                    success:function(data){
+                        if (data == 1) {
+
+                            localStorage.setItem('lastname',user);
+                            location.replace('index.html');
+
+                        }else{
+                            alert('wrong Id or Password');
+                            $('.login_form').trigger('reset');
+                        }
+                     
+                    }
+                 });
+
+            });
+           
+         
+
+          });
+   
+
+    // sessionStorage.setItem('lastname','1235874');
+    // sessionStorage.setItem('password',pass);
+    // localStorage.setItem('name','vru');
+</script>
+</body>
+</html>
